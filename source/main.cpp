@@ -76,6 +76,15 @@ int main() {
 		const double time = glfwGetTime();
 
 		glfwPollEvents();
+
+		// Окно свёрнуто: рисовать некуда, ждём, пока его развернут
+		int framebuffer_width, framebuffer_height;
+		glfwGetFramebufferSize(glfw_window, &framebuffer_width, &framebuffer_height);
+		if (framebuffer_width == 0 || framebuffer_height == 0) {
+			glfwWaitEvents();
+			continue;
+		}
+
 		ImGui_ImplGlfw_NewFrame();
 
 		ImGui::NewFrame();
