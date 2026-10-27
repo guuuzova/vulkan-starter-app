@@ -8,6 +8,25 @@ struct Vector3 {
 	float x, y, z;
 };
 
+inline Vector3 operator-(Vector3 a, Vector3 b) {
+	return { a.x - b.x, a.y - b.y, a.z - b.z };
+}
+
+// Векторное произведение: вектор, перпендикулярный a и b
+inline Vector3 cross(Vector3 a, Vector3 b) {
+	return {
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x,
+	};
+}
+
+// Вектор того же направления единичной длины
+inline Vector3 normalize(Vector3 v) {
+	const float length = std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	return { v.x / length, v.y / length, v.z / length };
+}
+
 // Матрица 4x4. Элементы хранятся по столбцам (column-major), как mat4 в GLSL,
 // поэтому её можно копировать в uniform буфер без перестановки элементов
 struct Matrix4 {
